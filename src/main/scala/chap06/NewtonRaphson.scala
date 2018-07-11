@@ -31,7 +31,7 @@ object NewtonRaphson {
           else newtonRaphson
         } yield result
 
-        newtonRaphson.run(xinit).value._2
+        newtonRaphson.runA(xinit).value
       }
     }
 
