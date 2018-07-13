@@ -7,8 +7,9 @@ import org.scalajs.dom.html
 object MyCanvas {
   @JSExport
   def main01(canvas: html.Canvas): Unit = {
-    val ctx = canvas.getContext("2d")
-                    .asInstanceOf[dom.CanvasRenderingContext2D]
+    val ctx = canvas
+      .getContext("2d")
+      .asInstanceOf[dom.CanvasRenderingContext2D]
     ctx.strokeRect(10, 10, 200, 150)
     ctx.fillRect(50, 40, 120, 90)
     ctx.clearRect(90, 65, 40, 40)

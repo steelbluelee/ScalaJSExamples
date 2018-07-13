@@ -11,19 +11,19 @@ import scalatags.JsDom.all._
 @JSExportTopLevel("BodyMassIndex")
 object BodyMassIndex {
   @JSExport
-  def main() : Unit = {
+  def main(): Unit = {
     val height = js.Dynamic.global.document.getElementById("height")
     val weight = js.Dynamic.global.document.getElementById("weight")
-    val bmi = js.Dynamic.global.document.getElementById("bmi")
+    val bmi    = js.Dynamic.global.document.getElementById("bmi")
     val button = js.Dynamic.global.document.getElementById("button")
 
-    button.onclick = (_ : MouseEvent) => run()
+    button.onclick = (_: MouseEvent) => run()
 
-    def run() : Unit = {
+    def run(): Unit = {
       bmi.innerHTML = (for {
         h <- Try(height.value)
         w <- Try(weight.value)
-        b <- Try(w/h/h)
+        b <- Try(w / h / h)
       } yield b) fold (_.toString, "%.2f" format _)
     }
   }
