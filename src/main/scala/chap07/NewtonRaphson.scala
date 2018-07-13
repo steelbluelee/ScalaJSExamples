@@ -22,6 +22,7 @@ object NewtonRaphson {
     val answer = Try(t.asInstanceOf[String].toDouble) map {
       a => {
         val xinit = if (a > 1.0) a else 1.0
+
         lazy val newtonRaphson : State[Double,Double] = for {
           xold <- State.get[Double]
           _ <- State.set[Double](xold - (xold*xold -a)/ (2.0*xold))
