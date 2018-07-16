@@ -27,11 +27,10 @@ object NewtonRaphson {
           xold <- State.get[Double]
           _    <- State.set[Double](xold - (xold * xold - a) / (2.0 * xold))
           xnew <- State.get[Double]
-          result <- {
-            if ((xold - xnew) / xold < EPSILON)
-              State.pure[Double, Double](xnew)
-            else newtonRaphson
-          }
+          result <- if ((xold - xnew) / xold < EPSILON)
+                     State.pure[Double, Double](xnew)
+                   else
+                     newtonRaphson
         } yield result
 
         newtonRaphson.runA(xinit).value

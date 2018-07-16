@@ -11,10 +11,11 @@ import scalatags.JsDom.all._
 object StopWatch {
   @JSExport
   def main01(): Unit = {
-    val startButton                                    = js.Dynamic.global.document.getElementById("start")
-    val stopButton                                     = js.Dynamic.global.document.getElementById("stop")
-    val display                                        = js.Dynamic.global.document.getElementById("display")
-    var timer: js.UndefOr[js.timers.SetIntervalHandle] = js.undefined
+    val startButton = js.Dynamic.global.document.getElementById("start")
+    val stopButton  = js.Dynamic.global.document.getElementById("stop")
+    val display     = js.Dynamic.global.document.getElementById("display")
+    var timer: js.UndefOr[js.timers.SetIntervalHandle] =
+      js.undefined
 
     startButton.onclick = (_: MouseEvent) => start()
 
@@ -38,11 +39,11 @@ object StopWatch {
 
   @JSExport
   def main02(target: html.Div): Unit = {
-    val startButton =
-      input(`type` := "button", value := "start").render
-    val stopButton                                     = input(`type` := "button", value := "stop").render
-    val display                                        = p("0.00").render
-    var timer: js.UndefOr[js.timers.SetIntervalHandle] = js.undefined
+    val startButton = input(`type` := "button", value := "start").render
+    val stopButton  = input(`type` := "button", value := "stop").render
+    val display     = p("0.00").render
+    var timer: js.UndefOr[js.timers.SetIntervalHandle] =
+      js.undefined
 
     target.appendChild(div(display, startButton, stopButton).render)
 
