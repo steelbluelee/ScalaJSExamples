@@ -28,7 +28,7 @@ object Moles {
   @JSExport
   def main(): Unit = {
     makeAMoles(7, 4)
-    timer = js.timers.setInterval(TIME_INTERVAL)(game run _moles)
+    timer = js.timers.setInterval(TIME_INTERVAL)(startGame(_moles))
   }
 
   private def makeAMoles(nx: Int, ny: Int) = {
@@ -78,14 +78,11 @@ object Moles {
       // js.Dynamic.global.console.log(_moles.size)
     }
 
-  private val game: Reader[Moles, Unit] = for {
-    molesNum <- Reader((moles: Moles) => moles.size)
-    _ <- if (molesNum == 0) // format: off
-           Reader((_: Moles) => stopGame())
-         else
-           Reader((_: Moles) => continueGame(_moles))
-         // format: on
-  } yield ()
+  private def startGame(moles: Moles): Unit =
+    if (moles.size == 0)
+      stopGame()
+    else
+      continueGame(_moles)
 
   private def stopGame(): Unit = {
     timer foreach js.timers.clearInterval
@@ -95,8 +92,10 @@ object Moles {
   private def continueGame(moles: Moles) = {
     val r    = Random
     val mole = moles.toList(r nextInt (moles.size))
+
     mole.style.opacity   = 1.toString
     mole.style.transform = "translateY(-10px)"
+
     js.timers.setTimeout(DISPLAY_TIME) {
       mole.style.opacity   = 0.2.toString
       mole.style.transform = "translateY(0px)"
