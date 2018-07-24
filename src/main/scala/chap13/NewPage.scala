@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g}
 import org.scalajs.dom.raw.{Event, MouseEvent, Element, Document}
 import org.scalajs.dom
-import dom.document
 
 @JSExportTopLevel("NewPage")
 object NewPage {
