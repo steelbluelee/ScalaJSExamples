@@ -50,12 +50,14 @@ object GetNodeObject {
   def getElementsByName(): Unit = {
     val dogs =
       g.document.getElementsByName("dog").asInstanceOf[HTMLCollection]
+
     // It is likely that the nodeValue_= and value methods aren't implemented
     // in scala.js's Node and Element traits(or classes)
     // So, use nexElementSibling with <span></span> tag instead of
-    // nextSibling.
+    // nextSibling. The following commentted codes don't work
     // dogs(1).value = "corgi"
     // dogs(1).nextSibling.nodeValue = "웰시 코기"
+
     dogs(1).asInstanceOf[html.Input].value = "corgi"
     dogs(1).nextElementSibling.innerHTML   = "웰시 코기<br>"
     for (i <- 0 to dogs.length - 1) {
