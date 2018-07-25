@@ -59,7 +59,7 @@ object GetNodeObject {
     // dogs(1).nextSibling.nodeValue = "웰시 코기"
 
     dogs(1).asInstanceOf[html.Input].value = "corgi"
-    dogs(1).nextElementSibling.innerHTML   = "웰시 코기<br>"
+    dogs(1).nextElementSibling.innerHTML   = "웰시 코기"
     for (i <- 0 to dogs.length - 1) {
       g.console.log(i + "번째의 값 : " + dogs(i).getAttribute("value"))
 
