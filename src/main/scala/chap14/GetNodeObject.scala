@@ -15,7 +15,7 @@ import org.scalajs.dom.raw.{
   ParentNode,
   Attr
 }
-// import scalatags.JsDom.all._
+import scalatags.JsDom.all._
 
 // see https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/html.scala
 
@@ -122,5 +122,33 @@ object GetNodeObject {
     list.asInstanceOf[js.Array[Attr]].foreach { a =>
       g.console.log("js.Array[Attr] => " + a.name + ": " + a.value)
     }
+  }
+
+  // It's better to use scalatags in the following case
+  @JSExport
+  def appendChild(): Unit = {
+    val doglist = g.document.getElementById("doglist")
+    val element = g.document.createElement("li")
+    val text    = g.document.createTextNode("불독")
+    doglist.appendChild(element)
+    element.appendChild(text)
+  }
+
+  // I've used scalatags instead of createElemnet function
+  @JSExport
+  def insertBefore(): Unit = {
+    val doglist = g.document.getElementById("doglist").asInstanceOf[html.UList]
+    val element = li("불독").render
+    // children's type is HTMLCollection. If doglist.children(1) make an error,
+    // you can fit it like this following code in comments
+    // doglist.insertBefore(element,
+    //                      doglist.children.asInstanceOf[js.Array[html.LI]](1))
+    doglist.insertBefore(element, doglist.children(1))
+  }
+
+  @JSExport
+  def moveNode(): Unit = {
+    val doglist = g.document.getElementById("doglist").asInstanceOf[html.UList]
+    doglist.appendChild(doglist.children(0))
   }
 }
