@@ -1,3 +1,5 @@
+package ScalaJSExamples
+
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.scalajs.js
 

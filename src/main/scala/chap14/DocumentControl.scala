@@ -151,4 +151,28 @@ object DocumentControl {
     val doglist = g.document.getElementById("doglist").asInstanceOf[html.UList]
     doglist.appendChild(doglist.children(0))
   }
+
+  @JSExport
+  def scrollTo(): Unit = {
+    // if (js.Object.hasProperty(g.history.asInstanceOf[js.Object], "scrollRestoration"))
+    // in scala.js
+    // is equivalent to
+    // if ('scrollRestoration' in history)
+    // in javascript
+    // It's better to make implicit class which has in method or hasProperty method
+    // for you to use like
+    // if ("scrollRestoration" in g.history)
+    // or
+    // if (g.history.hasProperty("scrollRestoration")
+    if (js.Object.hasProperty(g.history.asInstanceOf[js.Object],
+                              "scrollRestoration"))
+      g.history.scrollRestoration = "manual"
+
+    val element = g.document.getElementById("sec3")
+    val rect    = element.getBoundingClientRect()
+    g.scrollTo(rect.left.asInstanceOf[Int] + GetScroll.left,
+               rect.top.asInstanceOf[Int] + GetScroll.top)
+    g.console.log("left : " + GetScroll.left)
+    g.console.log("top  : " + GetScroll.top)
+  }
 }
