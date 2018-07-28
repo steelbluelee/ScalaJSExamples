@@ -19,8 +19,8 @@ import scalatags.JsDom.all._
 
 // see https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/html.scala
 
-@JSExportTopLevel("GetNodeObject")
-object GetNodeObject {
+@JSExportTopLevel("DocumentControl")
+object DocumentControl {
   @JSExport
   def getElementById(): Unit = {
     val element = g.document.getElementById("second").asInstanceOf[html.Div]
