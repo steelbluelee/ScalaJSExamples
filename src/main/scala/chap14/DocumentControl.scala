@@ -175,4 +175,16 @@ object DocumentControl {
     g.console.log("left : " + GetScroll.left)
     g.console.log("top  : " + GetScroll.top)
   }
+
+  @JSExport
+  def scrollIntoView(): Unit = {
+    if (js.Object.hasProperty(g.history.asInstanceOf[js.Object],
+                              "scrollRestoration"))
+      g.history.scrollRestoration = "manual"
+
+    val element = g.document.getElementById("sec3")
+    element.scrollIntoView()
+    g.console.log("left : " + GetScroll.left)
+    g.console.log("top  : " + GetScroll.top)
+  }
 }
