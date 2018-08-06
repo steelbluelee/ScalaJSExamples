@@ -18,6 +18,10 @@ import org.scalajs.dom.raw.{
 import scalatags.JsDom.all._
 
 // see https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/html.scala
+// see the abstract class HTMLCollection at
+// https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/raw/Html.scala
+// see the trait DOMList which is the parent of HTMLCollection at
+// https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/raw/lib.scala
 
 @JSExportTopLevel("DocumentControl")
 object DocumentControl {
@@ -186,5 +190,21 @@ object DocumentControl {
     element.scrollIntoView()
     g.console.log("left : " + GetScroll.left)
     g.console.log("top  : " + GetScroll.top)
+  }
+
+  @JSExport
+  def htmlForm(): Unit = {
+    val menu = g.document.getElementById("menu1").asInstanceOf[html.Select]
+    g.console.log(menu)
+    val options = g.document.getElementsByTagName("option")
+    g.console.log(options)
+
+    g.console.log(g.document.forms.item(0))
+    g.console.log(g.document.forms.form1)
+    g.console.log(g.document.forms.questions)
+
+    g.console.log(g.document.forms.form1.elements.item(3))
+    g.console.log(g.document.forms.form1.bloodtype)
+    g.console.log(g.document.forms.form1.menu1)
   }
 }

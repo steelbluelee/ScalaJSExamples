@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Form Example</title>
+</head>
+
+<body>
+    <form id="form1" action="./cgi-bin/post.cgi" method="post" name="questions">
+        <h1>
+            Survey
+        </h1>
+        <p>
+            <label>Name : </label>
+            <input type="text" name="name">
+        </p>
+        <p>
+            <label>Sex : </label>
+            <label><input type="radio" name="sex" value="male"></label>
+            <label><input type="radio" name="sex" value="female" /></label>
+        </p>
+        <p>
+            <label>Blood Type : </label>
+            <select name="bloodtype" id="menu1">
+            <option>A</option>
+            <option>B</option>
+            <option>O</option>
+            <option>AB</option>
+        </select>
+        </p>
+        <p>
+            <h2>Opinion</h2>
+            <textarea name="opinion" rows="6" placeholder="Leave your opinion"></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Send">
+            <input type="reset" value="Cancel">
+        </p>
+    </form>
+</body>
+
+<script type="text/javascript" src="../../scalajsexamples-fastopt.js"></script>
+<script type="text/javascript" src="/workbench.js"></script>
+<script>
+    DocumentControl.htmlForm();
+</script>
+
+</html>
