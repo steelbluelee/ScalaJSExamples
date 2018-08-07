@@ -207,4 +207,10 @@ object DocumentControl {
     g.console.log(g.document.forms.form1.bloodtype)
     g.console.log(g.document.forms.form1.menu1)
   }
+
+  @JSExport
+  def cssControl(): Unit = {
+    val element = g.document.getElementById("title")
+    element.onclick = (_: MouseEvent) => element.style.backgroundColor = "pink"
+  }
 }
