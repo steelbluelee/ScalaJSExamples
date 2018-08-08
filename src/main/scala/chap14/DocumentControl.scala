@@ -1,6 +1,6 @@
 package ScalaJSExamples
 
-import scala.collection.mutable
+import scala.annotation.tailrec
 import scala.scalajs.js.annotation.{JSExportTopLevel, JSExport}
 import org.scalajs.dom
 import org.scalajs.dom.html
@@ -16,6 +16,10 @@ import org.scalajs.dom.raw.{
   Attr
 }
 import scalatags.JsDom.all._
+
+import cats._
+import cats.implicits._
+import cats.data.State
 
 // see https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/html.scala
 // see the abstract class HTMLCollection at
@@ -212,5 +216,52 @@ object DocumentControl {
   def cssControl(): Unit = {
     val element = g.document.getElementById("title")
     element.onclick = (_: MouseEvent) => element.style.backgroundColor = "pink"
+  }
+
+  @JSExport
+  def createIconEditor(parent: html.Body, nx: Int, ny: Int): Unit = {
+    val color = input(`type` := "color").render
+    val clear = input(`type` := "button", value := "Clear All").render
+    lazy val (aTable, cells) = makeATable
+
+    clear.onclick = (e: MouseEvent) =>
+      cells.foreach { (_td: html.TableCell) =>
+        _td.style.backgroundColor = "white"
+    }
+
+    parent.appendChild(color)
+    parent.appendChild(clear)
+    parent.appendChild(aTable)
+
+    def makeATable = {
+      val (_rows, cells) =
+        makeRows(Seq[html.TableRow](), Seq[html.TableCell](), ny)
+      (table(_rows).render, cells)
+    }
+
+    @tailrec
+    def makeRows(rows: Seq[html.TableRow],
+                 cells: Seq[html.TableCell],
+                 _ny: Int): (Seq[html.TableRow], Seq[html.TableCell]) =
+      if (_ny == 0)
+        (rows, cells)
+      else {
+        val aRow = makeARow
+        makeRows(tr(aRow).render +: rows, cells ++ aRow, _ny - 1)
+      }
+
+    def makeARow = Seq.fill(nx)(makeACell)
+
+    def makeACell = {
+      val _td = td().render
+      _td.style.width  = "15px"
+      _td.style.height = "15px"
+      _td.style.border = "1px solid gray"
+      _td.onclick = (e: MouseEvent) =>
+        e.target.asInstanceOf[html.TableCell].style.backgroundColor =
+          color.value
+      _td
+    }
+
   }
 }
