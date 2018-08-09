@@ -220,8 +220,8 @@ object DocumentControl {
 
   @JSExport
   def createIconEditor(parent: html.Body, nx: Int, ny: Int): Unit = {
-    val color = input(`type` := "color").render
-    val clear = input(`type` := "button", value := "Clear All").render
+    val color                = input(`type` := "color").render
+    val clear                = input(`type` := "button", value := "Clear All").render
     lazy val (aTable, cells) = makeATable
 
     clear.onclick = (e: MouseEvent) =>
@@ -233,24 +233,17 @@ object DocumentControl {
     parent.appendChild(clear)
     parent.appendChild(aTable)
 
-    def makeATable = {
-      val (_rows, cells) =
-        makeRows(Seq[html.TableRow](), Seq[html.TableCell](), ny)
-      (table(_rows).render, cells)
+    def makeATable: (html.Table, Seq[html.TableCell]) = {
+      val (rows, cells) = Seq
+        .fill(ny)(makeCellsForARow)
+        .foldRight((Seq[html.TableRow](), Seq[html.TableCell]())) {
+          (_aRow, z) =>
+            (tr(_aRow).render +: z._1, _aRow ++ z._2)
+        }
+      (table(rows).render, cells)
     }
 
-    @tailrec
-    def makeRows(rows: Seq[html.TableRow],
-                 cells: Seq[html.TableCell],
-                 _ny: Int): (Seq[html.TableRow], Seq[html.TableCell]) =
-      if (_ny == 0)
-        (rows, cells)
-      else {
-        val aRow = makeARow
-        makeRows(tr(aRow).render +: rows, cells ++ aRow, _ny - 1)
-      }
-
-    def makeARow = Seq.fill(nx)(makeACell)
+    def makeCellsForARow = Seq.fill(nx)(makeACell)
 
     def makeACell = {
       val _td = td().render
@@ -262,6 +255,18 @@ object DocumentControl {
           color.value
       _td
     }
+
+  }
+
+  @JSExport
+  def getComputedStyle(): Unit = {
+    val element = g.document.getElementById("note")
+    g.console.log(element.style.color)
+    g.console.log(element.style.height)
+
+    val computedStyle = g.getComputedStyle(element)
+    g.console.log(computedStyle.color)
+    g.console.log(computedStyle.height)
 
   }
 }
