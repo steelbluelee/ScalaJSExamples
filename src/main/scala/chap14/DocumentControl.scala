@@ -229,6 +229,9 @@ object DocumentControl {
         _td.style.backgroundColor = "white"
     }
 
+    // aTable.style.borderCollapse = "collapse"
+    // aTable.style.marginTop = "5px"
+
     parent.appendChild(color)
     parent.appendChild(clear)
     parent.appendChild(aTable)
@@ -240,16 +243,19 @@ object DocumentControl {
           (_aRow, z) =>
             (tr(_aRow).render +: z._1, _aRow ++ z._2)
         }
-      (table(rows).render, cells)
+      (table(borderCollapse := "collapse", marginTop := "5px", rows).render,
+       cells)
     }
 
     def makeCellsForARow = Seq.fill(nx)(makeACell)
 
     def makeACell = {
-      val _td = td().render
-      _td.style.width  = "15px"
-      _td.style.height = "15px"
-      _td.style.border = "1px solid gray"
+      val _td =
+        td(width := "15px", height := "15px", border := "1px solid gray").render
+      // td().render
+      // _td.style.width  = "15px"
+      // _td.style.height = "15px"
+      // _td.style.border = "1px solid gray"
       _td.onclick = (e: MouseEvent) =>
         e.target.asInstanceOf[html.TableCell].style.backgroundColor =
           color.value
@@ -272,8 +278,10 @@ object DocumentControl {
   @JSExport
   def classList(): Unit = {
     val element = g.document.getElementById("note1")
-    val list = element.classList.asInstanceOf[dom.DOMTokenList]
-    list.asInstanceOf[js.Array[String]].foreach { s => g.console.log(s)}
+    val list    = element.classList.asInstanceOf[dom.DOMTokenList]
+    list.asInstanceOf[js.Array[String]].foreach { s =>
+      g.console.log(s)
+    }
     list.toggle("invisible")
     g.console.log(element.className)
     list.toggle("invisible")
