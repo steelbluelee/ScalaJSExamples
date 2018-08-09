@@ -267,6 +267,16 @@ object DocumentControl {
     val computedStyle = g.getComputedStyle(element)
     g.console.log(computedStyle.color)
     g.console.log(computedStyle.height)
+  }
 
+  @JSExport
+  def classList(): Unit = {
+    val element = g.document.getElementById("note1")
+    val list = element.classList.asInstanceOf[dom.DOMTokenList]
+    list.asInstanceOf[js.Array[String]].foreach { s => g.console.log(s)}
+    list.toggle("invisible")
+    g.console.log(element.className)
+    list.toggle("invisible")
+    g.console.log(element.className)
   }
 }
