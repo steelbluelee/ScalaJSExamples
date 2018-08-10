@@ -7,7 +7,7 @@ import org.scalajs.dom.raw.{Event, MouseEvent, Element, Document}
 import org.scalajs.dom
 
 import scalatags.JsDom.all._
- 
+
 // set MouseEvent class at https://github.com/scala-js/scala-js-dom/blob/master/src/main/scala/org/scalajs/dom/raw/lib.scala
 
 @JSExportTopLevel("DragBox")
@@ -30,15 +30,15 @@ object DragBox {
       (e: MouseEvent) => {
         val computedStyle = g.getComputedStyle(box)
 
-        val offsetX = e.pageX.toDouble - computedStyle.left
-          .asInstanceOf[String]
-          .dropRight(2)
-          .toDouble
+        val offsetX = e.pageX.toDouble - computedStyle.left // format: off
+                                          .asInstanceOf[String]
+                                          .dropRight(2)
+                                          .toDouble //format: on
 
-        val offsetY = e.pageY.toDouble - computedStyle.top
-          .asInstanceOf[String]
-          .dropRight(2)
-          .toDouble
+        val offsetY = e.pageY.toDouble - computedStyle.top // format: off
+                                          .asInstanceOf[String]
+                                          .dropRight(2)
+                                          .toDouble // format: on
 
         val mouseMoveListener = makeMouseMoveListener(offsetX, offsetY)
 
