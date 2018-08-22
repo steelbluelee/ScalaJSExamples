@@ -56,8 +56,7 @@ object SJSEvent {
 
   }
 
-
-  @JSExport
+  @JSExport("stopImmediatePropagation")
   def stopImmediatePropagation(): Unit = {
     val outer  = g.document.getElementById("outer")
     val inner2 = g.document.getElementById("inner2")

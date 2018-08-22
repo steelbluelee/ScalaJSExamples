@@ -3,23 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Stop Immediate Propagation</title>
-</head>
+    <title>preventDefault</title>
 
-<body>
-    <div id="outer">outer
-        <div id="inner1">inner1</div>
-        <div id="inner2">inner2</div>
-    </div>
-</body>
     <script type="text/javascript" src="../../scalajsexamples-fastopt.js"></script>
     <script type="text/javascript" src="/workbench.js"></script>
     <script>
         window.onload = function()
         {
-            SJSEvent.stopImmediatePropagation()
+            SJSEvent.preventDefault()
         }
     </script>
+</head>
+
+<body>
+    <a id="scalajs" href="https://scala-js.org">scala.js HomePage</a>
+</body>
 
 </html>
 
