@@ -56,7 +56,7 @@ object SJSEvent {
 
   }
 
-  @JSExport("stopImmediatePropagation")
+  @JSExport
   def stopImmediatePropagation(): Unit = {
     val outer  = g.document.getElementById("outer")
     val inner2 = g.document.getElementById("inner2")
@@ -79,6 +79,17 @@ object SJSEvent {
     inner2.addEventListener("click",
                             (_: MouseEvent) => g.console.log("inner2 (2)"),
                             false)
-
   }
+
+  @JSExport
+  def preventDefault(): Unit = {
+    val anchor = g.document.getElementById("scalajs")
+    anchor.addEventListener(
+      "click",
+      (e: MouseEvent) =>
+        if (!dom.window.confirm("Would you move to Scala.JS HomePage?"))
+          e.preventDefault(),
+      false)
+  }
+
 }
